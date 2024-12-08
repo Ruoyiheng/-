@@ -10,6 +10,17 @@
     </parent>
 
     <artifactId>zzy-server-user</artifactId>
-
-
+    <dependencies>
+        <!--引入pojo-user-->
+        <dependency>
+            <groupId>com.yuyou.zizaiyou</groupId>
+            <artifactId>zzy-pojo-user</artifactId>
+            <version>0.0.1</version>
+        </dependency>
+        <!--mysql连接-->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+    </dependencies>
 </project>

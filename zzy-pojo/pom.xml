@@ -11,10 +11,20 @@
 
     <artifactId>zzy-pojo</artifactId>
     <packaging>pom</packaging>
-
     <modules>
         <module>zzy-pojo-user</module>
     </modules>
 
+
+    <dependencies>
+        <dependency>
+            <groupId>com.yuyou.zizaiyou</groupId>
+            <artifactId>zyy-common-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+        </dependency>
+    </dependencies>
 
 </project>

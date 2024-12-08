@@ -16,12 +16,6 @@
         <module>zzy-server-user</module>
     </modules>
     <dependencies>
-        <!--bootstrap依赖(使用bootstrap.ymal必须引入)-->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-bootstrap</artifactId>
-        </dependency>
-        <!--mybatis-plus依赖-->
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
