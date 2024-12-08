@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yuyou.zizaiyou.serveruser.mapper.UserinfoMapper">
+
+    <resultMap id="BaseResultMap" type="com.yuyou.zizaiyou.domin.Userinfo">
+            <result property="id" column="id" jdbcType="BIGINT"/>
+            <result property="nickname" column="nickname" jdbcType="VARCHAR"/>
+            <result property="phone" column="phone" jdbcType="VARCHAR"/>
+            <result property="email" column="email" jdbcType="VARCHAR"/>
+            <result property="password" column="password" jdbcType="VARCHAR"/>
+            <result property="gender" column="gender" jdbcType="INTEGER"/>
+            <result property="level" column="level" jdbcType="INTEGER"/>
+            <result property="city" column="city" jdbcType="VARCHAR"/>
+            <result property="headImgUrl" column="head_img_url" jdbcType="VARCHAR"/>
+            <result property="info" column="info" jdbcType="VARCHAR"/>
+            <result property="state" column="state" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,nickname,phone,
+        email,password,gender,
+        level,city,head_img_url,
+        info,state
+    </sql>
+</mapper>
