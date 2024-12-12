@@ -17,6 +17,10 @@ public class ResultUtils {
         return new BaseResponse<>(0, data, "ok");
     }
 
+    //不带数据的成功返回
+    public static <T> BaseResponse<T> success() {
+        return new BaseResponse<>(ErrorCode.SUCCESS);
+    }
     /**
      * 失败
      *

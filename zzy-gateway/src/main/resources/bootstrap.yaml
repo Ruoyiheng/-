@@ -8,11 +8,12 @@ spring:
         namespace: ${spring.cloud.nacos.config.namespace} #zzy命名空间
       config:
         namespace: 521c58c3-dc43-4338-a6b6-fd0127a4fbc2    #引用nacos配置中心的配置
-        data-id: zzy-gateway  #指定从 Nacos 中读取的配置文件名
+        data-id: zzy-gateway.yaml  #指定从 Nacos 中读取的配置文件名
         file-extension: yaml #配置文件格式
         refreshable: true  # 可选，配置是否支持动态刷新
-
   profiles:
     active: dev
-#logging:
-#    root: DEBUG  # 设置日志级别
+
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG

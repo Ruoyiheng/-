@@ -6,7 +6,7 @@ import com.yuyou.zizaiyou.domin.Userinfo;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
-* @author Oakley
+* @author xa5fun
 * @description 针对表【userinfo】的数据库操作Mapper
 * @createDate 2024-12-05 16:51:48
 * @Entity generator.domain.Userinfo

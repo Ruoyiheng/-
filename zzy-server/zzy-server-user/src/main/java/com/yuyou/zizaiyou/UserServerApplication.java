@@ -1,4 +1,4 @@
-package com.yuyou.zizaiyou.serveruser;
+package com.yuyou.zizaiyou;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;

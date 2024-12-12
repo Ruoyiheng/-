@@ -13,6 +13,7 @@
         <module>zzy-pojo</module>
         <module>zzy-server</module>
         <module>zzy-gateway</module>
+        <module>zzy-commons/zzy-common-redis</module>
     </modules>
 
     <packaging>pom</packaging>

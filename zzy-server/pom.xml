@@ -16,6 +16,11 @@
         <module>zzy-server-user</module>
     </modules>
     <dependencies>
+        <!--公共依赖-->
+        <dependency>
+            <groupId>com.yuyou.zizaiyou</groupId>
+            <artifactId>zyy-common-core</artifactId>
+        </dependency>
         <!--bootstrap依赖(使用bootstrap.ymal必须引入)-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -26,11 +31,12 @@
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
         </dependency>
+        <!--spring boot测试-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
         </dependency>
+        <!--spring web-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
