@@ -1,0 +1,20 @@
+server:
+  port: 9000
+spring:
+  application:
+    name: zzy-gateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 172.29.183.193:8848
+    gateway:
+      discovery:
+        locator:
+          enabled: true # 让gateway可以发现nacos中的微服务
+      routes:
+        - id: article_route
+          uri: lb://zzy-article-server
+          predicates:
+            - Path=/articles/**
+          filters:
+            - StripPrefix=1

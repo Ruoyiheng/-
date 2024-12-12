@@ -1,0 +1,15 @@
+server:
+  port: 9001
+spring:
+  application:
+    name: zzy-article-server
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 172.29.183.193:8848
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 191105
+    url: jdbc:mysql://172.29.183.193:3306/zzy_article
+

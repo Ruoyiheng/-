@@ -2,10 +2,12 @@ package com.yuyou.zizaiyou.gateway;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
+@EnableDiscoveryClient
 @SpringBootApplication
-public class GateWayApplication {
+public class ZyyGateWayApplication {
     public static void main(String[] args) {
-        SpringApplication.run(GateWayApplication.class,args);
+        SpringApplication.run(ZyyGateWayApplication.class,args);
     }
 }

@@ -5,17 +5,17 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.yuyou.zizaiyou</groupId>
-        <artifactId>zizaiyou</artifactId>
+        <artifactId>zzy-server</artifactId>
         <version>0.0.1</version>
     </parent>
 
-    <artifactId>zzy-pojo</artifactId>
-    <packaging>pom</packaging>
+    <artifactId>zzy-server-article</artifactId>
 
-    <modules>
-        <module>zzy-pojo-user</module>
-        <module>zzy-pojo-article</module>
-    </modules>
-
-
+    <dependencies>
+        <dependency>
+            <groupId>com.yuyou.zizaiyou</groupId>
+            <artifactId>zzy-pojo-article</artifactId>
+            <version>0.0.1</version>
+        </dependency>
+    </dependencies>
 </project>
