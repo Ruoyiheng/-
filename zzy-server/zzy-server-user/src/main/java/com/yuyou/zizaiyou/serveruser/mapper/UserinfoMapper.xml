@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yuyou.zizaiyou.serveruser.mapper.UserinfoMapper">
 
-    <resultMap id="BaseResultMap" type="com.yuyou.zizaiyou.domin.Userinfo">
+    <resultMap id="BaseResultMap" type="com.yuyou.zizaiyou.po.Userinfo">
             <result property="id" column="id" jdbcType="BIGINT"/>
             <result property="nickname" column="nickname" jdbcType="VARCHAR"/>
             <result property="phone" column="phone" jdbcType="VARCHAR"/>

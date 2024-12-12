@@ -43,11 +43,17 @@ public class SmsServiceImpl implements SmsService {
      **/
     @Override
     public void registerSmsSend(String phone) {
-        // 验证手机号是否为有效的中国大陆手机号
+        // 1.验证手机号是否为有效的中国大陆手机号
         if (!isValidPhone(phone)) {
             throw new IllegalArgumentException("请输入有效的中国大陆手机号");
         }
-        // 2. 生成验证码(纯数字, 字母+数字)
+        // 2.限制每60s只能发送一次
+        String key = "users:register:" + phone;
+        if (redisCache.getExpire(key) >240) {
+            throw new BusinessException(ErrorCode.FORBIDDEN_ERROR,"发送验证码过于频繁");
+        }
+        //TODO 以上方法
+        // 3. 生成验证码(纯数字, 字母+数字)
         String code = this.generateVerifyCode("MATH", 6);
         // 4. 调用第三方接口, 发送验证码
         try {
@@ -57,8 +63,8 @@ public class SmsServiceImpl implements SmsService {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        // 3. 将验证保存起来, 五分钟内有效
-        redisCache.setCacheObject("users:register:"+ phone, code,300);
+        // 5. 将验证保存起来, 五分钟内有效
+        redisCache.setCacheObject("users:register:" + phone, code,300);
     }
 
 

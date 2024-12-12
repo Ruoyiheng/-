@@ -1,8 +1,8 @@
 package com.yuyou.zizaiyou.serveruser.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.yuyou.zizaiyou.domin.Userinfo;
-import org.springframework.stereotype.Service;
+import com.yuyou.zizaiyou.dto.RegInfo;
+import com.yuyou.zizaiyou.po.Userinfo;
 
 /**
 * @author xa5fun
@@ -18,4 +18,12 @@ public interface UserinfoService extends IService<Userinfo> {
 	 * @return com.yuyou.zizaiyou.domin.Userinfo
 	 **/
 	Userinfo getbyphone(String phone);
+
+	/**
+	 * @Author xa5fun
+	 * @Description 用户注册
+	 * @Param [regInfo]
+	 * @return com.yuyou.zizaiyou.dto.RegInfo
+	 **/
+	void register(RegInfo regInfo);
 }

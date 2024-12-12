@@ -18,7 +18,7 @@ spring:
     active: dev
 #  redis:
 #    host: 192.168.189.100
-logging:
-  level:
-    root: debug
 #    port: 6379
+#logging:
+#  level:
+#    root: debug

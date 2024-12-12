@@ -2,7 +2,7 @@ package com.yuyou.zizaiyou.serveruser.mapper;
 
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.yuyou.zizaiyou.domin.Userinfo;
+import com.yuyou.zizaiyou.po.Userinfo;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
