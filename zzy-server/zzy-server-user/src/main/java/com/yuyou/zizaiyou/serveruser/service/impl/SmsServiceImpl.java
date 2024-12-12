@@ -52,7 +52,6 @@ public class SmsServiceImpl implements SmsService {
         if (redisCache.getExpire(key) >240) {
             throw new BusinessException(ErrorCode.FORBIDDEN_ERROR,"发送验证码过于频繁");
         }
-        //TODO 以上方法
         // 3. 生成验证码(纯数字, 字母+数字)
         String code = this.generateVerifyCode("MATH", 6);
         // 4. 调用第三方接口, 发送验证码
