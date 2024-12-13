@@ -17,14 +17,23 @@
 
 
     <dependencies>
+        <!--公共核心依赖-->
         <dependency>
             <groupId>com.yuyou.zizaiyou</groupId>
             <artifactId>zyy-common-core</artifactId>
         </dependency>
+        <!--mybatis-plus依赖-->
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
         </dependency>
+        <!--redis公共依赖-->
+        <dependency>
+            <groupId>com.yuyou.zizaiyou</groupId>
+            <artifactId>zzy-common-redis</artifactId>
+            <version>0.0.1</version>
+        </dependency>
+
     </dependencies>
 
 </project>

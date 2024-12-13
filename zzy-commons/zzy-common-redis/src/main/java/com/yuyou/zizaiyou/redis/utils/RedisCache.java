@@ -45,6 +45,7 @@ public class RedisCache {
         redisTemplate.opsForValue().set(key, value);
     }
 
+    //按照前缀存储对象到redis
     public <T> void setCacheObject(final KeyPrefix prefix, final T value, String... suffix) {
         if (prefix.getTimeout() > 0) {
             this.setCacheObject(prefix.fullKey(suffix), value, prefix.getTimeout(), prefix.getUnit());

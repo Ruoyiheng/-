@@ -3,6 +3,7 @@ package com.yuyou.zizaiyou.serveruser.service.impl;
 import com.yuyou.zizaiyou.commoncore.exception.BaseResponse;
 import com.yuyou.zizaiyou.commoncore.exception.BusinessException;
 import com.yuyou.zizaiyou.commoncore.exception.ErrorCode;
+import com.yuyou.zizaiyou.redis.key.UserRedisKeyPrefix;
 import com.yuyou.zizaiyou.redis.utils.RedisCache;
 import com.yuyou.zizaiyou.serveruser.service.SmsService;
 import com.aliyun.dysmsapi20170525.Client;
@@ -63,7 +64,7 @@ public class SmsServiceImpl implements SmsService {
             e.printStackTrace();
         }
         // 5. 将验证保存起来, 五分钟内有效
-        redisCache.setCacheObject("users:register:" + phone, code,300);
+        redisCache.setCacheObject(UserRedisKeyPrefix.USERS_REGISTER_VERIFYCODE,code,phone);
     }
 
 

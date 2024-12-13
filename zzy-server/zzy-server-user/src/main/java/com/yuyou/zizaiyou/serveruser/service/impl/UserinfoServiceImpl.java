@@ -7,6 +7,7 @@ import com.yuyou.zizaiyou.commoncore.exception.ErrorCode;
 import com.yuyou.zizaiyou.commoncore.exception.Md5Utils;
 import com.yuyou.zizaiyou.dto.RegInfo;
 import com.yuyou.zizaiyou.po.Userinfo;
+import com.yuyou.zizaiyou.redis.key.UserRedisKeyPrefix;
 import com.yuyou.zizaiyou.redis.utils.RedisCache;
 import com.yuyou.zizaiyou.serveruser.mapper.UserinfoMapper;
 import com.yuyou.zizaiyou.serveruser.service.UserinfoService;
@@ -45,7 +46,7 @@ public class UserinfoServiceImpl extends ServiceImpl<UserinfoMapper, Userinfo> i
 			throw new BusinessException(ErrorCode.PARAMS_ERROR,"手机号已注册");
 		};
 		//判断验证码是否正确
-		String key = "users:register:" + regInfo.getPhone();
+		String key = UserRedisKeyPrefix.USERS_REGISTER_VERIFYCODE.fullKey(regInfo.getPhone());//拼接key
 		if(!(redisCache.getCacheObject(key).equals(regInfo.getVerifycode()))){
 			throw  new BusinessException(ErrorCode.PARAMS_ERROR,"验证码错误");
 		};
