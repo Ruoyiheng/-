@@ -8,6 +8,7 @@ import com.yuyou.zizaiyou.serveruser.service.UserinfoService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @description
@@ -48,5 +49,15 @@ public class UserInfoController {
 		userinfoService.register(regInfo);
 		return ResultUtils.success();
 	}
-
+	/**
+	 * 登录接口
+	 * @param phone
+	 * @param password
+	 * @return
+	 */
+	@PostMapping("/login")
+	public BaseResponse<Map<String,Object>> login(@RequestParam(name = "username")String phone,@RequestParam String password){
+		BaseResponse<Map<String,Object>> loginmap = userinfoService.login(phone,password);
+		return  loginmap;
+	}
 }

@@ -2,10 +2,9 @@ package com.yuyou.zizaiyou.serveruser.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.yuyou.zizaiyou.commoncore.exception.BusinessException;
-import com.yuyou.zizaiyou.commoncore.exception.ErrorCode;
-import com.yuyou.zizaiyou.commoncore.exception.Md5Utils;
+import com.yuyou.zizaiyou.commoncore.exception.*;
 import com.yuyou.zizaiyou.dto.RegInfo;
+import com.yuyou.zizaiyou.jwt.JwtUtils;
 import com.yuyou.zizaiyou.po.Userinfo;
 import com.yuyou.zizaiyou.redis.key.UserRedisKeyPrefix;
 import com.yuyou.zizaiyou.redis.utils.RedisCache;
@@ -13,6 +12,9 @@ import com.yuyou.zizaiyou.serveruser.mapper.UserinfoMapper;
 import com.yuyou.zizaiyou.serveruser.service.UserinfoService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
 * @author xa5fun
@@ -60,6 +62,32 @@ public class UserinfoServiceImpl extends ServiceImpl<UserinfoMapper, Userinfo> i
 		newuser.setNickname(regInfo.getNickname());
 		newuser.setPassword(md5);
 		this.save(newuser);
+	}
+
+	@Override
+	public BaseResponse<Map<String, Object>> login(String phone, String password) {
+		//查询用户，如为空则抛出异常
+		Userinfo user = getbyphone(phone);
+		if(user==null){
+			throw new BusinessException(ErrorCode.PARAMS_ERROR,"用户不存在");
+		}
+		//校验密码
+		if(!user.getPassword().equals(Md5Utils.getMD5(password+phone))){
+			throw new BusinessException(ErrorCode.PARAMS_ERROR,"登录密码错误");
+		};
+		//生成token
+		Map<String , Object> payload = new HashMap<>();
+		payload.put("id",user.getId());
+		payload.put("phone",user.getPhone());
+		payload.put("nickname",user.getNickname());
+		String token = JwtUtils.generateToken(payload);
+		//user信息脱敏
+		user.setPassword("");
+		//按前端要求格式封装返回值
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("token",token);
+		map.put("user",user);
+		return ResultUtils.success(map);
 	}
 }
 

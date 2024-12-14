@@ -1,4 +1,4 @@
-package com.yuyou.zizaiyou.gateway;
+package com.yuyou.zizaiyou;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -11,11 +11,15 @@
 
     <artifactId>zzy-server-user</artifactId>
     <dependencies>
+        <dependency>
+            <groupId>com.yuyou.zizaiyou</groupId>
+            <artifactId>zzy-common-security</artifactId>
+            <version>0.0.1</version>
+        </dependency>
         <!--引入pojo-user-->
         <dependency>
             <groupId>com.yuyou.zizaiyou</groupId>
             <artifactId>zzy-pojo-user</artifactId>
-            <version>0.0.1</version>
         </dependency>
         <!--mysql连接-->
         <dependency>
@@ -32,7 +36,6 @@
         <dependency>
             <groupId>com.aliyun</groupId>
             <artifactId>dysmsapi20170525</artifactId>
-            <version>2.0.22</version>
         </dependency>
     </dependencies>
 </project>

@@ -1,8 +1,11 @@
 package com.yuyou.zizaiyou.serveruser.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.yuyou.zizaiyou.commoncore.exception.BaseResponse;
 import com.yuyou.zizaiyou.dto.RegInfo;
 import com.yuyou.zizaiyou.po.Userinfo;
+
+import java.util.Map;
 
 /**
 * @author xa5fun
@@ -26,4 +29,12 @@ public interface UserinfoService extends IService<Userinfo> {
 	 * @return com.yuyou.zizaiyou.dto.RegInfo
 	 **/
 	void register(RegInfo regInfo);
+
+	/**
+	 * @Author xa5fun
+	 * @Description 用户登录
+	 * @Param [phone, password]
+	 * @return com.yuyou.zizaiyou.commoncore.exception.BaseResponse<java.util.Map<java.lang.String,java.lang.Object>>
+	 **/
+	BaseResponse<Map<String, Object>> login(String phone, String password);
 }

@@ -12,6 +12,10 @@
     <artifactId>zzy-gateway</artifactId>
 
     <dependencies>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+        </dependency>
         <!--gateway网关-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -32,10 +36,11 @@
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
         </dependency>
-<!--bootstrap依赖(使用bootstrap.ymal必须引入)-->
+       <!--bootstrap依赖(使用bootstrap.ymal必须引入)-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-bootstrap</artifactId>
         </dependency>
+
     </dependencies>
 </project>

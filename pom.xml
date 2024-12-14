@@ -26,6 +26,7 @@
     </parent>
 
     <properties>
+        <zzy-pojo-user.version>0.0.1</zzy-pojo-user.version>
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -44,6 +45,17 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>com.yuyou.zizaiyou</groupId>
+                <artifactId>zzy-pojo-user</artifactId>
+                <version>${zzy-pojo-user.version}</version>
+            </dependency>
+            <!--jwt-->
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt</artifactId>
+                <version>${jjwt.version}</version>
+            </dependency>
             <!--mysql连接-->
             <dependency>
                 <groupId>mysql</groupId>
