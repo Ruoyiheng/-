@@ -1,5 +1,6 @@
 package com.yuyou.zizaiyou.serveruser.controller;
 
+import com.yuyou.zizaiyou.annotation.LoginRequired;
 import com.yuyou.zizaiyou.commoncore.exception.BaseResponse;
 import com.yuyou.zizaiyou.commoncore.exception.ResultUtils;
 import com.yuyou.zizaiyou.dto.RegInfo;
@@ -23,6 +24,7 @@ public class UserInfoController {
 		this.userinfoService = userinfoService;
 	}
 
+	@LoginRequired
 	@GetMapping("/list")
 	public BaseResponse<List<Userinfo>> list() {
 		return ResultUtils.success(userinfoService.list());
@@ -34,6 +36,7 @@ public class UserInfoController {
 	 * @return
 	 */
 	@GetMapping("phone/exists")
+	@LoginRequired
 	public BaseResponse<Boolean> getbyphone(@RequestParam String phone) {
 		//存在用户返回true 不存在返回false
 		return ResultUtils.success(userinfoService.getbyphone(phone)!=null);

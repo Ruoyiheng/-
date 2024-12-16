@@ -15,60 +15,28 @@ import java.io.Serializable;
 @TableName(value ="userinfo")
 @Data
 public class Userinfo implements Serializable {
-    /**
-     * 
-     */
+
     @TableId(type = IdType.AUTO)
     private Long id;
 
-    /**
-     * 
-     */
     private String nickname;
 
-    /**
-     * 
-     */
     private String phone;
 
-    /**
-     * 
-     */
     private String email;
 
-    /**
-     * 
-     */
     private String password;
 
-    /**
-     * 
-     */
     private Integer gender =0;//保密
 
-    /**
-     * 
-     */
     private Integer level=0;//用户级别
 
-    /**
-     * 
-     */
-    private String city;
+    private String city; //所在城市
 
-    /**
-     * 
-     */
     private String headImgUrl;//头像
 
-    /**
-     * 
-     */
     private String info;
 
-    /**
-     * 
-     */
     private Integer state = 0;//正常
 
     @TableField(exist = false)

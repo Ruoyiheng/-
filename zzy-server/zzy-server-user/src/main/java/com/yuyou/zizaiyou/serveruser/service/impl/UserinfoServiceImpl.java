@@ -10,11 +10,17 @@ import com.yuyou.zizaiyou.redis.key.UserRedisKeyPrefix;
 import com.yuyou.zizaiyou.redis.utils.RedisCache;
 import com.yuyou.zizaiyou.serveruser.mapper.UserinfoMapper;
 import com.yuyou.zizaiyou.serveruser.service.UserinfoService;
+import com.yuyou.zizaiyou.vo.LoginUser;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 /**
 * @author xa5fun
@@ -31,7 +37,11 @@ public class UserinfoServiceImpl extends ServiceImpl<UserinfoMapper, Userinfo> i
 
 	RedisCache redisCache;
 
+	@Value("${jwt.expireTime}")
+	private Long jwtExpireTime;
 
+	@Autowired
+	JwtUtils jwtUtils;
 
 
 	@Override
@@ -75,18 +85,26 @@ public class UserinfoServiceImpl extends ServiceImpl<UserinfoMapper, Userinfo> i
 		if(!user.getPassword().equals(Md5Utils.getMD5(password+phone))){
 			throw new BusinessException(ErrorCode.PARAMS_ERROR,"登录密码错误");
 		};
-		//生成token
+		//复制查询到的用户到登录用户
+		LoginUser loginUser = new LoginUser();
+		BeanUtils.copyProperties(user,loginUser);
+		//填充登录时间和过期时间
+		long currentTimeMillis = System.currentTimeMillis();
+		loginUser.setLoginTime(currentTimeMillis);
+		loginUser.setExpireTime(currentTimeMillis+jwtExpireTime);//24小时过期
+		//保存用户信息到redis
+		String uuid = UUID.randomUUID().toString().replaceAll("-", "");
+		String fullKey = UserRedisKeyPrefix.USERS_LOGIN_INFO.fullKey(uuid);
+		redisCache.setCacheObject(fullKey,loginUser,loginUser.getExpireTime(), TimeUnit.MILLISECONDS);//uuid为唯一标识
+		//生成token,把用户进本信息填入payload中
 		Map<String , Object> payload = new HashMap<>();
-		payload.put("id",user.getId());
-		payload.put("phone",user.getPhone());
-		payload.put("nickname",user.getNickname());
-		String token = JwtUtils.generateToken(payload);
-		//user信息脱敏
-		user.setPassword("");
+		payload.put("uuid",uuid);//uuid为唯一标识,用于从redis取得用户登录信息
+		String token = jwtUtils.generateToken(payload);
+
 		//按前端要求格式封装返回值
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("token",token);
-		map.put("user",user);
+		map.put("user",loginUser);
 		return ResultUtils.success(map);
 	}
 }

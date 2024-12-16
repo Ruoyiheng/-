@@ -32,5 +32,14 @@
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.yuyou.zizaiyou</groupId>
+            <artifactId>zzy-common-redis</artifactId>
+            <version>0.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.yuyou.zizaiyou</groupId>
+            <artifactId>zzy-pojo-user</artifactId>
+        </dependency>
     </dependencies>
 </project>
