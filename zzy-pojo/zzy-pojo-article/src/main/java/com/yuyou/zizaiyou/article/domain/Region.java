@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-@TableName("Region")
+@TableName("region")
 public class Region implements Serializable {
     public static final int STATE_HOT = 1;
     public static final int STATE_NORMAL = 0;

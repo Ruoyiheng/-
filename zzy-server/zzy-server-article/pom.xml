@@ -17,5 +17,10 @@
             <artifactId>zzy-pojo-article</artifactId>
             <version>0.0.1</version>
         </dependency>
+        <dependency>
+            <groupId>com.yuyou.zizaiyou</groupId>
+            <artifactId>zyy-common-core</artifactId>
+            <version>0.0.1</version>
+        </dependency>
     </dependencies>
 </project>
