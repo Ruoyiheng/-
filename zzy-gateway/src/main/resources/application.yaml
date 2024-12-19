@@ -1,0 +1,30 @@
+server:
+  port: 9999
+spring:
+  application:
+    name: zzy-gateway #必填 让nacos发现该服务
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: false  #动态路由 下面已经手动配置，关闭防止覆盖
+      routes:
+        - id: server-user
+          uri: lb://zzy-server-user
+          predicates:
+            - Path=/users/**,/sms/**
+    nacos:
+      server-addr: 192.168.189.100:8848 #nacos中心地址,写在和discovery cofig同级，表示他们统一使用该地址
+      discovery:
+        namespace: 521c58c3-dc43-4338-a6b6-fd0127a4fbc2 #命名空间
+#      config:
+#        namespace: 521c58c3-dc43-4338-a6b6-fd0127a4fbc2    #引用nacos配置中心的配置
+#        data-id: zzy-gateway.yaml  #指定从 Nacos 中读取的配置文件名
+#        file-extension: yaml #配置文件格式
+#        refreshable: true  # 可选，配置是否支持动态刷新
+  profiles:
+    active: dev
+
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
