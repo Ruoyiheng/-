@@ -13,7 +13,7 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>zzy-server-user</module>
+        <module>zzy-server-article</module>
     </modules>
     <dependencies>
         <dependency>

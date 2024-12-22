@@ -22,7 +22,7 @@ var serverUrlMap = {
 }
 function getServiceUrl(service){
     //return serverUrlMap[service]
-    return "http://localhost:9999/" + service;
+    return "http://localhost:9000/" + service;
 }
 
 //异步请求
