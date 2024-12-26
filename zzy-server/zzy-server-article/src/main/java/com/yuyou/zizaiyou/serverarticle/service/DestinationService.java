@@ -18,4 +18,7 @@ public interface DestinationService extends IService<Destination> {
     Boolean updateInfo(Long id, String info);
 
     List<Destination> toasts(Long destId);
+
+    List<Destination> hotList(Long regionId);
+
 }

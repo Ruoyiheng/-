@@ -85,4 +85,25 @@ public class DestinationServiceImpl extends ServiceImpl<DestinationMapper, Desti
         Collections.reverse(list);
         return list;
     }
+
+    @Override
+    public List<Destination> hotList(Long regionId) {
+        List<Destination> destinations = new ArrayList<>();
+        QueryWrapper<Destination> wrapper = new QueryWrapper<>();
+        if (regionId < 0){
+            destinations =  destinationMapper.selectList(wrapper.eq("parent_id",1));
+        }else {
+            Region region = regionMapper.selectById(regionId);
+            if (region == null){
+                return Collections.emptyList();
+            }
+            destinations = destinationMapper.selectBatchIds(region.parseRefIds());
+        }
+        for (Destination destination : destinations) {
+            wrapper.clear();
+            List<Destination> list = destinationMapper.selectList(wrapper.eq("parent_id", destination.getId()).last("limit 10"));
+            destination.setChildren(list);
+        }
+        return destinations;
+    }
 }

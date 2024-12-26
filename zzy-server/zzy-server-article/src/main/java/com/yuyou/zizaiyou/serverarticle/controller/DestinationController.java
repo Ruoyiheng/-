@@ -36,20 +36,28 @@ public class DestinationController {
     public BaseResponse<Destination> getDetail(@PathVariable Long id) {
         return ResultUtils.success(destinationService.getById(id));
     }
+
     @GetMapping("list")
-    public BaseResponse<List<Destination>> getList(){
+    public BaseResponse<List<Destination>> getList() {
         return ResultUtils.success(destinationService.list());
     }
+
     @PostMapping("delete/{id}")
-    public BaseResponse<Boolean> deleteByid(@PathVariable Long id){
+    public BaseResponse<Boolean> deleteByid(@PathVariable Long id) {
         return ResultUtils.success(destinationService.removeById(id));
     }
+
     @PostMapping("updateInfo")
-    public BaseResponse<Boolean> updateInfo(Long id,String info){
-        return ResultUtils.success(destinationService.updateInfo(id,info));
+    public BaseResponse<Boolean> updateInfo(Long id, String info) {
+        return ResultUtils.success(destinationService.updateInfo(id, info));
     }
-@GetMapping("toasts")
-    public BaseResponse<List<Destination>> toasts(Long destId){
+
+    @GetMapping("toasts")
+    public BaseResponse<List<Destination>> toasts(Long destId) {
         return ResultUtils.success(destinationService.toasts(destId));
-}
+    }
+    @GetMapping("hotList")
+    public BaseResponse<List<Destination>> hotList(Long regionId) {
+        return ResultUtils.success(destinationService.hotList(regionId));
+    }
 }
