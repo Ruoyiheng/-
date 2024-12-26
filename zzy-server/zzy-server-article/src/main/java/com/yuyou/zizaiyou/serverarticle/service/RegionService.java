@@ -10,7 +10,11 @@ import com.yuyou.zizaiyou.commoncore.qo.QueryObject;
 import com.yuyou.zizaiyou.serverarticle.mapper.RegionMapper;
 import com.yuyou.zizaiyou.serverarticle.query.RegionQuery;
 
+import java.util.List;
+
 public interface RegionService extends IService<Region> {
     Page queryPage(RegionQuery regionQuery);
+
+    List<Region> getHotRegion();
 
 }

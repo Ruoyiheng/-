@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import javax.management.Query;
+import java.util.List;
 
 @Service
 public class RegionServiceImpl extends ServiceImpl<RegionMapper, Region> implements RegionService {
@@ -31,6 +32,11 @@ public class RegionServiceImpl extends ServiceImpl<RegionMapper, Region> impleme
         QueryWrapper<Region> regionQueryWrapper = new QueryWrapper<>();
         regionQueryWrapper.like(StringUtils.hasText(regionQuery.getKeyWord()),"name",regionQuery.getKeyWord());
         return regionMapper.selectPage(page,regionQueryWrapper);
+    }
+
+    @Override
+    public List<Region> getHotRegion() {
+        return regionMapper.selectList(new QueryWrapper<Region>().eq("ishot",Region.STATE_HOT));
     }
 
 

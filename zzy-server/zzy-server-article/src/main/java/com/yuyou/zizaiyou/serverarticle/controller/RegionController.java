@@ -86,4 +86,9 @@ public class RegionController {
     public BaseResponse<List<Destination>> getDestinationByRid(@PathVariable Long id){
         return ResultUtils.success(destinationService.getDestnationByRid(id));
     }
+
+    @GetMapping("hot")
+    public BaseResponse<List<Region>> getHotRegion(){
+        return ResultUtils.success(regionService.getHotRegion());
+    }
 }
