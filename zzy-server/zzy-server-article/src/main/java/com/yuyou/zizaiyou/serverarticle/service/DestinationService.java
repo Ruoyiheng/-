@@ -14,4 +14,6 @@ public interface DestinationService extends IService<Destination> {
     List<Destination> getDestnationByRid(Long id);
 
     Page<Destination> pageList(DestinationQuery destinationQuery);
+
+    Boolean updateInfo(Long id, String info);
 }

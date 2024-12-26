@@ -1,6 +1,7 @@
 package com.yuyou.zizaiyou.serverarticle.service.Impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.yuyou.zizaiyou.article.domain.Destination;
@@ -28,16 +29,23 @@ public class DestinationServiceImpl extends ServiceImpl<DestinationMapper, Desti
         this.regionMapper = regionMapper;
     }
 
+    /**
+     * @param regionId
+     * @return 查询区域下的目的地
+     */
     @Override
     public List<Destination> getDestnationByRid(Long regionId) {
+        // 1。通过区域id查询区域信息
         Region region = regionMapper.selectById(regionId);
         if (regionId == null) {
             return null;
         }
+        // 2.通过区域信息得到目的地id列表
         List<Long> refIds = region.parseRefIds();
-        if (refIds.isEmpty()){
+        if (refIds.isEmpty()) {
             return Collections.emptyList();
         }
+        // 3 查询目的地并返回
         return destinationMapper.selectBatchIds(refIds);
     }
 
@@ -45,9 +53,20 @@ public class DestinationServiceImpl extends ServiceImpl<DestinationMapper, Desti
     public Page<Destination> pageList(DestinationQuery destinationQuery) {
         Page<Destination> page = new Page<>(destinationQuery.getCurrentPage(), destinationQuery.getPageSize());
         QueryWrapper<Destination> queryWrapper = new QueryWrapper<>();
-        queryWrapper.isNull(destinationQuery.getParentId() == null,"parent_id");
-        queryWrapper.eq(destinationQuery.getParentId() != null,"parent_id",destinationQuery.getParentId());
-        queryWrapper.like(!StringUtils.isEmpty(destinationQuery.getKeyWord()),"name",destinationQuery.getKeyWord());
-        return destinationMapper.selectPage(page,queryWrapper);
+        // 如果parent_id为null，则按null查询
+        queryWrapper.isNull(destinationQuery.getParentId() == null, "parent_id");
+        // 如果parent_id不为null，则按parent_id查询
+        queryWrapper.eq(destinationQuery.getParentId() != null, "parent_id", destinationQuery.getParentId());
+        // 关键字查询
+        queryWrapper.like(!StringUtils.isEmpty(destinationQuery.getKeyWord()), "name", destinationQuery.getKeyWord());
+        return destinationMapper.selectPage(page, queryWrapper);
+    }
+
+    @Override
+    public Boolean updateInfo(Long id, String info) {
+        UpdateWrapper<Destination> wrapper = new UpdateWrapper<>();
+        wrapper.eq("id", id);
+        wrapper.set("info", info);
+        return super.update(wrapper);
     }
 }

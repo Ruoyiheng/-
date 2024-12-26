@@ -9,9 +9,7 @@ import com.yuyou.zizaiyou.serverarticle.query.DestinationQuery;
 import com.yuyou.zizaiyou.serverarticle.service.DestinationService;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,11 +25,28 @@ public class DestinationController {
 
     /**
      * @param destinationQuery
-     * @return
-     * 分页查询
+     * @return 分页查询
      */
-    @GetMapping("list")
-    public BaseResponse<Page<Destination>> pageList(DestinationQuery destinationQuery){
+    @GetMapping("query")
+    public BaseResponse<Page<Destination>> pageList(DestinationQuery destinationQuery) {
         return ResultUtils.success(destinationService.pageList(destinationQuery));
     }
+
+    @GetMapping("detail")
+    public BaseResponse<Destination> getDetail(@PathVariable Long id) {
+        return ResultUtils.success(destinationService.getById(id));
+    }
+    @GetMapping("list")
+    public BaseResponse<List<Destination>> getList(){
+        return ResultUtils.success(destinationService.list());
+    }
+    @PostMapping("delete/{id}")
+    public BaseResponse<Boolean> deleteByid(@PathVariable Long id){
+        return ResultUtils.success(destinationService.removeById(id));
+    }
+    @PostMapping("updateInfo")
+    public BaseResponse<Boolean> updateInfo(Long id,String info){
+        return ResultUtils.success(destinationService.updateInfo(id,info));
+    }
+
 }
