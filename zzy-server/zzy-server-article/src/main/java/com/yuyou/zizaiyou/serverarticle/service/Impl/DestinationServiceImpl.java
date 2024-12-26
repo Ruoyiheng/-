@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -68,5 +69,20 @@ public class DestinationServiceImpl extends ServiceImpl<DestinationMapper, Desti
         wrapper.eq("id", id);
         wrapper.set("info", info);
         return super.update(wrapper);
+    }
+
+    @Override
+    public List<Destination> toasts(Long destId) {
+        List<Destination> list = new ArrayList<>();
+        while (destId != null) {
+            Destination destination = destinationMapper.selectById(destId);
+            list.add(destination);
+            if (destination == null) {
+                break;
+            }
+            destId = destination.getParentId();
+        }
+        Collections.reverse(list);
+        return list;
     }
 }

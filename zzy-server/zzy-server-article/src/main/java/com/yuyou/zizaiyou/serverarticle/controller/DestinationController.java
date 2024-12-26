@@ -48,5 +48,8 @@ public class DestinationController {
     public BaseResponse<Boolean> updateInfo(Long id,String info){
         return ResultUtils.success(destinationService.updateInfo(id,info));
     }
-
+@GetMapping("toasts")
+    public BaseResponse<List<Destination>> toasts(Long destId){
+        return ResultUtils.success(destinationService.toasts(destId));
+}
 }
