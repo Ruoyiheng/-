@@ -1,18 +1,16 @@
 package com.yuyou.zizaiyou.serverarticle.controller;
 
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.yuyou.zizaiyou.article.domain.Destination;
 import com.yuyou.zizaiyou.article.domain.Region;
 import com.yuyou.zizaiyou.commoncore.exception.BaseResponse;
 import com.yuyou.zizaiyou.commoncore.exception.ResultUtils;
 import com.yuyou.zizaiyou.commoncore.qo.QueryObject;
+import com.yuyou.zizaiyou.serverarticle.query.RegionQuery;
+import com.yuyou.zizaiyou.serverarticle.service.DestinationService;
 import com.yuyou.zizaiyou.serverarticle.service.RegionService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,9 +18,11 @@ import java.util.List;
 @RequestMapping("/regions")
 public class RegionController {
     private final RegionService regionService;
+    private final DestinationService destinationService;
 
-    public RegionController(RegionService regionService) {
+    public RegionController(RegionService regionService, DestinationService destinationService) {
         this.regionService = regionService;
+        this.destinationService = destinationService;
     }
 
     /**
@@ -37,13 +37,13 @@ public class RegionController {
     }
 
     /**
-     * @param queryObject
+     * @param regionQuery
      * @return
      * 分页查询区域信息
      */
     @GetMapping("/query")
-    public BaseResponse<Page<Region>> pageList(QueryObject queryObject) {
-        return ResultUtils.success(regionService.queryPage(queryObject));
+    public BaseResponse<Page<Region>> pageList(RegionQuery regionQuery) {
+        return ResultUtils.success(regionService.queryPage(regionQuery));
     }
 
     /**
@@ -74,5 +74,16 @@ public class RegionController {
     @PostMapping("/update")
     public BaseResponse<Boolean> updateRegion(Region region){
         return ResultUtils.success(regionService.updateById(region));
+    }
+
+    /**
+     * @param id
+     * @return
+     *
+     * 管理端：通过regionid 获取region下的目的地列表并返回
+     */
+    @PostMapping("{id}/destination")
+    public BaseResponse<List<Destination>> getDestinationByRid(@PathVariable Long id){
+        return ResultUtils.success(destinationService.getDestnationByRid(id));
     }
 }

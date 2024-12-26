@@ -4,9 +4,11 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.api.R;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.yuyou.zizaiyou.article.domain.Destination;
 import com.yuyou.zizaiyou.article.domain.Region;
 import com.yuyou.zizaiyou.commoncore.qo.QueryObject;
 import com.yuyou.zizaiyou.serverarticle.mapper.RegionMapper;
+import com.yuyou.zizaiyou.serverarticle.query.RegionQuery;
 import com.yuyou.zizaiyou.serverarticle.service.RegionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,10 +26,12 @@ public class RegionServiceImpl extends ServiceImpl<RegionMapper, Region> impleme
     }
 
     @Override
-    public Page queryPage(QueryObject queryObject) {
-        Page<Region> page = new Page<>(queryObject.getCurrentPage(), queryObject.getPageSize());
+    public Page queryPage(RegionQuery regionQuery) {
+        Page<Region> page = new Page<>(regionQuery.getCurrentPage(), regionQuery.getPageSize());
         QueryWrapper<Region> regionQueryWrapper = new QueryWrapper<>();
-        regionQueryWrapper.eq(StringUtils.hasText(queryObject.getKeyWord()),"name",queryObject.getKeyWord());
+        regionQueryWrapper.like(StringUtils.hasText(regionQuery.getKeyWord()),"name",regionQuery.getKeyWord());
         return regionMapper.selectPage(page,regionQueryWrapper);
     }
+
+
 }
