@@ -21,7 +21,7 @@ var vue = new Vue({
         //初始化列表
         init:function (){
             var options = {
-                url: getServiceUrl("article") + "/regions",
+                url: getServiceUrl("article") + "/regions/query",
                 contentType: "application/x-www-form-urlencoded",   //重要选项,必填
                 uniqueId: "id",                     //每一行的唯一标识，一般为主键列
                 striped : true, //是否显示行间隔色

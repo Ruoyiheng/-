@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-@TableName("Destination")
+@TableName("destination")
 public class Destination implements Serializable {
     @TableId(type= IdType.AUTO)
     private Long id;
