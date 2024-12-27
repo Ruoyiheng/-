@@ -19,15 +19,19 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ThreadPoolExecutor;
 
 @Service
 public class DestinationServiceImpl extends ServiceImpl<DestinationMapper, Destination> implements DestinationService {
     private final DestinationMapper destinationMapper;
     private final RegionMapper regionMapper;
+    public final ThreadPoolExecutor businessThreadPoolExecutor;
 
-    public DestinationServiceImpl(DestinationMapper destinationMapper, RegionMapper regionMapper) {
+    public DestinationServiceImpl(DestinationMapper destinationMapper, RegionMapper regionMapper, ThreadPoolExecutor businessThreadPoolExecutor) {
         this.destinationMapper = destinationMapper;
         this.regionMapper = regionMapper;
+        this.businessThreadPoolExecutor = businessThreadPoolExecutor;
     }
 
     /**
@@ -90,19 +94,27 @@ public class DestinationServiceImpl extends ServiceImpl<DestinationMapper, Desti
     public List<Destination> hotList(Long regionId) {
         List<Destination> destinations = new ArrayList<>();
         QueryWrapper<Destination> wrapper = new QueryWrapper<>();
-        if (regionId < 0){
-            destinations =  destinationMapper.selectList(wrapper.eq("parent_id",1));
-        }else {
+        if (regionId < 0) {
+            destinations = destinationMapper.selectList(wrapper.eq("parent_id", 1));
+        } else {
             Region region = regionMapper.selectById(regionId);
-            if (region == null){
+            if (region == null) {
                 return Collections.emptyList();
             }
             destinations = destinationMapper.selectBatchIds(region.parseRefIds());
         }
+        CountDownLatch countDownLatch = new CountDownLatch(destinations.size());
         for (Destination destination : destinations) {
-            wrapper.clear();
-            List<Destination> list = destinationMapper.selectList(wrapper.eq("parent_id", destination.getId()).last("limit 10"));
-            destination.setChildren(list);
+            businessThreadPoolExecutor.execute(() ->{
+                List<Destination> list = destinationMapper.selectList(wrapper.eq("parent_id", destination.getId()).last("limit 10"));
+                destination.setChildren(list);
+            });
+            countDownLatch.countDown();
+        }
+        try {
+            countDownLatch.await();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
         return destinations;
     }
